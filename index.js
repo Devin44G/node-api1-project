@@ -32,7 +32,9 @@ server.post('/api/users/', (req, res) => {
 
 server.get('api/users/:id', (req, res) => {
   const {id} = req.params;
-  const user = users.find(id === String(id));
+  const user = users.find(user => {
+    return user.id === id;
+  });
 
   if(!user) {
     res.status(404).json({ message: "The user with the specified ID does not exist." });
