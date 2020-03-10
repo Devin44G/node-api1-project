@@ -10,7 +10,7 @@ let users = [];
 /********* ENDPOINTS *********/
 server.get('/api/users', (req, res) => {  // GET
   if(!req) {
-    res.status(500).json({ errorMsg: "THere was an error while saving the user to the database." });
+    res.status(500).json({ errorMsg: "There was an error while saving the user to the database." });
   } else {
     res.status(200).json(users);
   }
@@ -31,12 +31,12 @@ server.post('/api/users/', (req, res) => {
 });
 
 server.get('api/users/:id', (req, res) => {
-  const userID = req.params;
-  const user = users.find(user => {
-    return user.id === userID.id;
+  // const userID = req.params;
+  const userID = users.find(user => {
+    return user.id === req.params.id;
   });
 
-  if(!user) {
+  if(!userID) {
     res.status(404).json({ message: "The user with the specified ID does not exist." });
   } else if(!req) {
     res.status(500).json({ errorMessage: "The user information could not be retrieved." });
