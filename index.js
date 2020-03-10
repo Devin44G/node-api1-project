@@ -24,26 +24,30 @@ server.post('/api/users/', (req, res) => {
   if(!req.body.name && !req.body.bio) {
     res.status(400).json({ errorMsg: "Please provide a name and bio for the users." });
   } else if(!req) {
-    res.status(500).json({ errorMsg: "THere was an error while saving the user to the database." });
+    res.status(500).json({ errorMsg: "There was an error while saving the user to the database." });
   } else {
     res.status(201).json(userInfo);
   }
 });
 
 server.get('api/users/:id', (req, res) => {
-  const {id} = req.params;
+  const userID = req.params;
   const user = users.find(user => {
-    return user.id === id;
+    return user.id === userID.id;
   });
 
   if(!user) {
     res.status(404).json({ message: "The user with the specified ID does not exist." });
-  } else if(!id) {
+  } else if(!req) {
     res.status(500).json({ errorMessage: "The user information could not be retrieved." });
   } else {
     res.status(200).json(user);
   }
 });
+
+// server.delete('/api/users/:id', (req, res) => {
+//
+// });
 
 const PORT = 5000;
 
